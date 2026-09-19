@@ -22,6 +22,7 @@ Case studies live in `content/work/<name>/index.md`. Copy any existing folder, e
   - `{{< compare before="Old copy" after="New copy" >}}` for a before/after comparison (or `before_img="a.png" after_img="b.png"`).
   - `{{< metrics >}}{{< metric value="40%" label="fewer support tickets" >}}{{< /metrics >}}` for results.
 - Downloads: list files in the `downloads:` front matter (see the commented example).
+- **At a glance and one-page summary:** fill in the `snapshot:` block (`problem`, `did`, and an optional headline `result` such as "40%" with `resultLabel`). It becomes the "At a glance" card and a printable summary at `/work/<name>/summary.html`. On that page, "Print or save as PDF" produces a clean, light one-pager. Empty fields are hidden.
 
 ## Anonymize by default
 
@@ -48,6 +49,8 @@ It prints a private link like `https://dumonjic.com/u/<20 random characters>/`. 
 **Unlisted is not secret.** Anyone who has the link can read it, links can be forwarded, and the source file lives in the public GitHub repo, where anyone can browse it. Only put anonymized material in an unlisted page. GitHub Pages needs a public repo on the free plan, so genuinely confidential material shouldn't go on this site at all.
 
 ## Settings
+
+The rewrite showcase near the top of the homepage lives in `content/_index.md` under `craft:`. Replace it with a real project (anonymized) and set `illustrative: false` to remove the "Illustrative example" label.
 
 Other settings live in `hugo.toml`: `buttondown` (subscribe forms). Put a resume PDF at `static/alen-dumonjic-resume.pdf` and the Resume page shows a download button.
 

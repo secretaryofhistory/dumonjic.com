@@ -35,6 +35,12 @@ summaryLength = 40
   isPlainText = true
   notAlternative = true
 
+# One-page printable summary of a case study: /work/<name>/summary.html
+[outputFormats.Summary]
+  mediaType = "text/html"
+  baseName = "summary"
+  notAlternative = true
+
 # WordPress served its RSS feed at /feed/. Serve the same feed there so existing subscribers keep working.
 [mediaTypes."application/x-legacy-feed"]
   suffixes = ["html"]

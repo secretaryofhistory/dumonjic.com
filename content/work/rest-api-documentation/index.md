@@ -6,6 +6,11 @@ featured: true
 weight: 4
 discipline: "Technical documentation"
 summary: "Placeholder summary: one or two sentences on the project and its outcome."
+snapshot:
+  problem: "Placeholder: one sentence on what wasn't working."
+  did: "Placeholder: one sentence on what you did."
+  result: ""        # a short headline number, e.g. "40%"
+  resultLabel: ""   # what it measures, e.g. "fewer support tickets"
 role: ""
 team: ""
 org: ""

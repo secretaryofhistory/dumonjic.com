@@ -9,13 +9,30 @@
   <h1 class="lead">{{ .Params.lead }}</h1>
   <div class="bio">{{ .Content }}</div>
   <p class="cta">
-    {{ if $work }}<a class="btn" href="/work/">See my work</a>{{ end }}
-    <a class="btn{{ if $work }} btn--ghost{{ end }}" href="/resume/">Resume</a>
+    {{ if $featured }}<a class="btn" href="#work">See my work</a>{{ end }}
+    <a class="btn{{ if $featured }} btn--ghost{{ end }}" href="/resume/">Resume</a>
   </p>
 </section>
 
+{{ with .Params.craft }}
+<section class="craft wide" aria-labelledby="craft-h">
+  <h2 id="craft-h" class="craft-h">{{ .heading }}</h2>
+  <div class="craft-grid">
+    <div class="craft-card craft-card--before">
+      <p class="craft-label">Before</p>
+      <p class="craft-text craft-text--mono">{{ .before }}</p>
+    </div>
+    <div class="craft-card craft-card--after">
+      <p class="craft-label">After</p>
+      <p class="craft-text">{{ .after }}</p>
+    </div>
+  </div>
+  {{ if .illustrative }}<p class="craft-note">Illustrative example</p>{{ end }}
+</section>
+{{ end }}
+
 {{ if $featured }}
-<section class="band wide" aria-labelledby="featured-h">
+<section id="work" class="band wide" aria-labelledby="featured-h">
   <div class="band-head"><h2 id="featured-h">Selected work</h2><a href="/work/">All work →</a></div>
   <ul class="grid">{{ range $featured.ByWeight }}{{ partial "work-card.html" . }}{{ end }}</ul>
 </section>
@@ -28,7 +45,7 @@
 </section>
 {{ end }}
 
-<section class="band wide" aria-labelledby="writing-h">
+<section id="writing" class="band wide" aria-labelledby="writing-h">
   <div class="band-head"><h2 id="writing-h">Writing</h2><a href="/creative-writing/">All writing →</a></div>
   <ul class="grid grid--3">
     <li class="card"><a class="card-link" href="/memoirs-beyond-the-womb/"><div class="card-body">
@@ -42,4 +59,15 @@
       <p class="card-summary">Storytelling techniques for writers to learn from and apply to their stories.</p></div></a></li>
   </ul>
 </section>
+
+{{ with site.GetPage "/about" }}
+<section id="about" class="band wide about" aria-labelledby="about-h">
+  <div class="band-head"><h2 id="about-h">About</h2><a href="/about/">More →</a></div>
+  <div class="about-body">{{ .Content }}</div>
+  <p class="cta cta--left">
+    <a class="btn" href="/resume/">Resume</a>
+    <a class="btn btn--ghost" href="{{ site.Params.linkedin }}">LinkedIn</a>
+  </p>
+</section>
+{{ end }}
 {{ end }}

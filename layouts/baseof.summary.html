@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }}: one-page summary • {{ site.Title }}</title>
+  <meta name="robots" content="noindex, nofollow">
+  {{ with .OutputFormats.Get "HTML" }}<link rel="canonical" href="{{ .Permalink }}">{{ end }}
+  {{ $css := resources.Get "css/main.css" | resources.Minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head>
+<body class="summary-page">
+  {{ block "main" . }}{{ end }}
+</body>
+</html>

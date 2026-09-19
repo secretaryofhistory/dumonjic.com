@@ -1,0 +1,29 @@
+{{ $unlisted := eq .Section "unlisted" }}
+{{ $s := .Params.snapshot | default dict }}
+{{ $fields := slice (dict "k" "Company" "v" .Params.org) (dict "k" "Role" "v" .Params.role) (dict "k" "Team" "v" .Params.team) (dict "k" "Timeline" "v" .Params.timeline) }}
+<div class="sheet">
+  <p class="toolbar no-print">
+    {{ with .OutputFormats.Get "HTML" }}<a href="{{ .RelPermalink }}">← Full case study</a>{{ end }}
+    <button type="button" onclick="window.print()">Print or save as PDF</button>
+  </p>
+  <header class="sheet-head">
+    <p class="sheet-brand">Alen Dumonjić · Content designer</p>
+    {{ with .Params.discipline }}<p class="k">{{ . }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.summary }}{{ if not $.Params.placeholder }}<p class="lede">{{ . }}</p>{{ end }}{{ end }}
+  </header>
+  <dl class="facts">
+    {{ range $fields }}{{ if .v }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}{{ end }}
+    {{ with .Params.tools }}<div><dt>Tools</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
+  </dl>
+  <div class="sheet-grid">
+    {{ with $s.problem }}<section><h2 class="k">Problem</h2><p>{{ . }}</p></section>{{ end }}
+    {{ with $s.did }}<section><h2 class="k">What I did</h2><p>{{ . }}</p></section>{{ end }}
+    {{ with $s.result }}<section><h2 class="k">Result</h2><p class="glance-metric">{{ . }}</p>{{ with $s.resultLabel }}<p class="glance-metric-label">{{ . }}</p>{{ end }}</section>{{ end }}
+  </div>
+  {{ if .Params.confidential }}<p class="sheet-note">Some details are anonymized. More are available on request.</p>{{ end }}
+  <footer class="sheet-foot">
+    <span>{{ site.Home.Permalink | strings.TrimPrefix "https://" | strings.TrimSuffix "/" }}</span>
+    {{ if not $unlisted }}{{ with .OutputFormats.Get "HTML" }}<span>Full case study: {{ .Permalink | strings.TrimPrefix "https://" }}</span>{{ end }}{{ end }}
+  </footer>
+</div>

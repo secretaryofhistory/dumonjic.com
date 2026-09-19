@@ -21,6 +21,19 @@
   {{ end }}
   {{ if .Params.confidential }}<p class="note">Some details are anonymized. More are available on request.</p>{{ end }}
 
+  {{ with .Params.snapshot }}
+  {{ if or .problem .did .result }}
+  <section class="glance" aria-label="At a glance">
+    <div class="glance-head"><h2>At a glance</h2>{{ with $.OutputFormats.Get "Summary" }}<a class="btn btn--ghost btn--sm" href="{{ .RelPermalink }}">One-page summary</a>{{ end }}</div>
+    <div class="glance-grid">
+      {{ with .problem }}<div><p class="k">Problem</p><p>{{ . }}</p></div>{{ end }}
+      {{ with .did }}<div><p class="k">What I did</p><p>{{ . }}</p></div>{{ end }}
+      {{ if .result }}<div><p class="k">Result</p><p class="glance-metric">{{ .result }}</p>{{ with .resultLabel }}<p class="glance-metric-label">{{ . }}</p>{{ end }}</div>{{ end }}
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+
   {{ with $cover }}{{ $img := .Resize "1400x q85" }}
   <figure class="cover"><img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ .Params.coverAlt | default "" }}"></figure>
   {{ end }}

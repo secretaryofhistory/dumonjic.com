@@ -11,4 +11,5 @@ cascade:
     list: never
   sitemap:
     disable: true
+  outputs: ["HTML", "Summary"]
 ---

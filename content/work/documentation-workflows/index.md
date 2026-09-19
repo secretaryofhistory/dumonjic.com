@@ -6,6 +6,11 @@ featured: true
 weight: 7
 discipline: "Technical documentation"
 summary: "I’m the first and only Technical Writer hired by GoGuardian, so the challenge was creating a new position while never having been a Technical Writer previously."
+snapshot:
+  problem: "Documentation was non-existent or decentralized across multiple platforms."
+  did: "Built workflows, a light style guide, and a centralized documentation hub."
+  result: ""        # a short headline number, e.g. "40%"
+  resultLabel: ""   # what it measures, e.g. "fewer support tickets"
 role: "Technical Writer"
 org: "GoGuardian"
 tools: ["Confluence", "Highspot", "Google Drive", "Slack"]
