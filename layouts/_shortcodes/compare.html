@@ -1,0 +1,16 @@
+{{- /* {{< compare before="Old text" after="New text" beforeLabel="Before" afterLabel="After" >}}  or before_img/after_img (files next to the page) */ -}}
+<div class="compare">
+  {{ range $side := slice "before" "after" }}
+    {{ $text := $.Get $side }}
+    {{ $imgName := $.Get (printf "%s_img" $side) }}
+    {{ $label := $.Get (printf "%sLabel" $side) | default (cond (eq $side "before") "Before" "After") }}
+    <div class="compare-side compare-side--{{ $side }}">
+      <p class="compare-label">{{ $label }}</p>
+      {{ if $imgName }}
+        {{ with $.Page.Resources.Get $imgName }}<img src="{{ (.Resize "900x q85").RelPermalink }}" alt="{{ $.Get (printf "%s_alt" $side) }}" loading="lazy">{{ end }}
+      {{ else }}
+        <p class="compare-text">{{ $text }}</p>
+      {{ end }}
+    </div>
+  {{ end }}
+</div>

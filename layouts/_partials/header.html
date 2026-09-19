@@ -1,10 +1,11 @@
+{{ $p := .RelPermalink }}
 <header class="site-header">
   <a class="site-title" href="/" {{ if .IsHome }}aria-current="page"{{ end }}>Alen Dumonjić</a>
   <nav class="site-nav" aria-label="Main">
-    <a href="/portfolio/"{{ if eq .RelPermalink "/portfolio/" }} aria-current="page"{{ end }}>Professional Writing</a>
-    <a href="/creative-writing/"{{ if eq .RelPermalink "/creative-writing/" }} aria-current="page"{{ end }}>Creative Writing</a>
-    <a href="/memoirs-beyond-the-womb/"{{ if eq .RelPermalink "/memoirs-beyond-the-womb/" }} aria-current="page"{{ end }}>Memoirs</a>
-    <a href="/search/" class="nav-search" aria-label="Search"{{ if eq .RelPermalink "/search/" }} aria-current="page"{{ end }}>
+    <a href="/work/"{{ if hasPrefix $p "/work/" }} aria-current="page"{{ end }}>Work</a>
+    <a href="/creative-writing/"{{ if or (eq $p "/creative-writing/") (eq $p "/memoirs-beyond-the-womb/") }} aria-current="page"{{ end }}>Writing</a>
+    <a href="/about/"{{ if eq $p "/about/" }} aria-current="page"{{ end }}>About</a>
+    <a href="/search/" class="nav-search" aria-label="Search"{{ if eq $p "/search/" }} aria-current="page"{{ end }}>
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <span class="nav-search-label">Search</span>
     </a>

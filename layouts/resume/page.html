@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="entry-header"><h1>{{ .Title }}</h1></header>
+  <div class="entry-content">{{ .Content }}</div>
+  <p class="cta cta--left">
+    {{ if fileExists "static/alen-dumonjic-resume.pdf" }}<a class="btn" href="/alen-dumonjic-resume.pdf" download>Download resume (PDF)</a>{{ end }}
+    <a class="btn{{ if fileExists "static/alen-dumonjic-resume.pdf" }} btn--ghost{{ end }}" href="{{ site.Params.linkedin }}">View on LinkedIn</a>
+  </p>
+  {{ if not (fileExists "static/alen-dumonjic-resume.pdf") }}<p class="note">A downloadable version is coming soon.</p>{{ end }}
+</div>
+{{ end }}

@@ -4,6 +4,7 @@
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{ if and (eq .Section "posts") (not (strings.TrimSpace .Plain)) }}<meta name="robots" content="noindex">{{ end }}
 <meta name="theme-color" content="#292524">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ cond .IsHome site.Title .Title }}">

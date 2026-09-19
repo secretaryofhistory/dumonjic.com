@@ -1,0 +1,20 @@
+{{- $mode := .mode -}}
+{{- if eq $mode "short" -}}
+  <div class="quotes">
+    {{ range where hugo.Data.testimonials "short" "ne" nil }}
+      <figure class="quote">
+        <blockquote><p>“{{ .short }}”</p></blockquote>
+        <figcaption>{{ .role }}</figcaption>
+      </figure>
+    {{ end }}
+  </div>
+{{- else -}}
+  <div class="quotes quotes--full">
+    {{ range hugo.Data.testimonials }}
+      <figure class="quote">
+        <blockquote>{{ range .paragraphs }}<p>{{ . }}</p>{{ end }}</blockquote>
+        <figcaption>{{ .role }}</figcaption>
+      </figure>
+    {{ end }}
+  </div>
+{{- end -}}

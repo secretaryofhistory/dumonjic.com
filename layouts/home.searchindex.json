@@ -1,6 +1,6 @@
 {{- $docs := slice -}}
-{{- range where site.RegularPages "Type" "in" (slice "posts" "page" "memoirs") -}}
-  {{- if not (in (slice "search") .Type) -}}
+{{- range where site.RegularPages "Type" "in" (slice "posts" "page" "memoirs" "work") -}}
+  {{- if and (not (in (slice "search" "resume" "contact") .Type)) (or (ne .Section "posts") (ne (strings.TrimSpace .Plain) "")) -}}
     {{- $cats := slice -}}{{- range .GetTerms "categories" }}{{ $cats = $cats | append .Title }}{{ end -}}
     {{- $docs = $docs | append (dict "title" .Title "url" .RelPermalink "date" (cond .Date.IsZero "" (.Date.Format "2006-01-02")) "dateLabel" (cond .Date.IsZero "" (.Date.Format "January 2, 2006")) "categories" $cats "body" (.Plain | htmlUnescape)) -}}
   {{- end -}}

@@ -1,0 +1,16 @@
+{{- $cover := .Resources.GetMatch "cover*" -}}
+<li class="card" data-discipline="{{ .Params.discipline }}">
+  <a class="card-link" href="{{ .RelPermalink }}">
+    {{ if $cover }}
+      {{ $img := $cover.Fill "800x500 q85" }}
+      <img class="card-img" src="{{ $img.RelPermalink }}" width="800" height="500" alt="" loading="lazy">
+    {{ else }}
+      <div class="card-img card-img--type" aria-hidden="true"><span>{{ .Params.discipline }}</span></div>
+    {{ end }}
+    <div class="card-body">
+      {{ if $cover }}{{ with .Params.discipline }}<p class="card-kicker">{{ . }}</p>{{ end }}{{ end }}
+      <h3 class="card-title">{{ .Title }}</h3>
+      {{ with .Params.summary }}<p class="card-summary">{{ . }}</p>{{ end }}
+    </div>
+  </a>
+</li>

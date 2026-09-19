@@ -1,0 +1,48 @@
+{{ define "main" }}
+{{ $cover := .Resources.GetMatch "cover*" }}
+<article class="case">
+  <header class="entry-header">
+    <p class="meta"><a href="/work/">Work</a>{{ with .Params.discipline }} <span aria-hidden="true">·</span> {{ . }}{{ end }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.summary }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ if .Params.placeholder }}
+  <p class="banner" role="note"><strong>Placeholder.</strong> This case study still has draft text. Replace it, then remove <code>placeholder: true</code> from the front matter.</p>
+  {{ end }}
+
+  {{ $fields := slice (dict "k" "Company" "v" .Params.org) (dict "k" "Role" "v" .Params.role) (dict "k" "Team" "v" .Params.team) (dict "k" "Timeline" "v" .Params.timeline) }}
+  {{ $has := or .Params.org .Params.role .Params.team .Params.timeline .Params.tools }}
+  {{ if $has }}
+  <dl class="facts">
+    {{ range $fields }}{{ if .v }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}{{ end }}
+    {{ with .Params.tools }}<div><dt>Tools</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
+  </dl>
+  {{ end }}
+  {{ if .Params.confidential }}<p class="note">Some details are anonymized. More are available on request.</p>{{ end }}
+
+  {{ with $cover }}{{ $img := .Resize "1400x q85" }}
+  <figure class="cover"><img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.coverAlt | default "" }}"></figure>
+  {{ end }}
+
+  <div class="entry-content">{{ .Content }}</div>
+
+  {{ with .Params.downloads }}
+  <aside class="downloads" aria-label="Downloads">
+    <h2>Download</h2>
+    <ul>
+      {{ range . }}
+        {{ $r := $.Resources.Get .file }}
+        <li><a class="btn btn--ghost" href="{{ if $r }}{{ $r.RelPermalink }}{{ else }}{{ .file }}{{ end }}" download>{{ .title }}</a></li>
+      {{ end }}
+    </ul>
+  </aside>
+  {{ end }}
+
+  <nav class="case-nav" aria-label="More work">
+    {{ with .NextInSection }}<a class="prev" href="{{ .RelPermalink }}"><span>Previous</span>{{ .Title }}</a>{{ end }}
+    {{ with .PrevInSection }}<a class="next" href="{{ .RelPermalink }}"><span>Next</span>{{ .Title }}</a>{{ end }}
+  </nav>
+  <p class="case-cta">Want to talk about a project like this? <a href="/contact/">Get in touch</a>.</p>
+</article>
+{{ end }}

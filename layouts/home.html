@@ -1,12 +1,46 @@
 {{ define "main" }}
+{{ $work := where site.RegularPages "Section" "work" }}
+{{ $featured := where $work "Params.featured" true }}
 <section class="hero">
   {{ with resources.Get "images/alen.jpg" }}
     {{ $img := .Fill "480x480 q90" }}
-    <img class="portrait" src="{{ $img.RelPermalink }}" width="240" height="240" alt="Alen Dumonjić">
+    <img class="portrait" src="{{ $img.RelPermalink }}" width="200" height="200" alt="Alen Dumonjić">
   {{ end }}
+  <h1 class="lead">{{ .Params.lead }}</h1>
   <div class="bio">{{ .Content }}</div>
-  <a class="linkedin" href="{{ site.Params.linkedin }}" aria-label="Alen on LinkedIn" rel="me">
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-  </a>
+  <p class="cta">
+    {{ if $work }}<a class="btn" href="/work/">See my work</a>{{ end }}
+    <a class="btn{{ if $work }} btn--ghost{{ end }}" href="/resume/">Resume</a>
+    <a class="btn btn--ghost" href="/contact/">Get in touch</a>
+  </p>
+</section>
+
+{{ if $featured }}
+<section class="band wide" aria-labelledby="featured-h">
+  <div class="band-head"><h2 id="featured-h">Selected work</h2><a href="/work/">All work →</a></div>
+  <ul class="grid">{{ range $featured.ByWeight }}{{ partial "work-card.html" . }}{{ end }}</ul>
+</section>
+{{ end }}
+
+{{ if where hugo.Data.testimonials "short" "ne" nil }}
+<section class="band wide" aria-labelledby="kind-h">
+  <div class="band-head"><h2 id="kind-h">Kind words</h2><a href="/about/#testimonials">More →</a></div>
+  {{ partial "testimonials.html" (dict "mode" "short") }}
+</section>
+{{ end }}
+
+<section class="band wide" aria-labelledby="writing-h">
+  <div class="band-head"><h2 id="writing-h">Writing</h2><a href="/creative-writing/">All writing →</a></div>
+  <ul class="grid grid--3">
+    <li class="card"><a class="card-link" href="/memoirs-beyond-the-womb/"><div class="card-body">
+      <p class="card-kicker">Sundays</p><h3 class="card-title">Memoirs Beyond the Womb</h3>
+      <p class="card-summary">Micro-essays about fatherhood.</p></div></a></li>
+    <li class="card"><a class="card-link" href="{{ site.Params.substack }}"><div class="card-body">
+      <p class="card-kicker">Monthly</p><h3 class="card-title">Velvet Vowel</h3>
+      <p class="card-summary">A monthly missive.</p></div></a></li>
+    <li class="card"><a class="card-link" href="https://theperiplous.com"><div class="card-body">
+      <p class="card-kicker">Library</p><h3 class="card-title">The Periplous</h3>
+      <p class="card-summary">Storytelling techniques for writers to learn from and apply to their stories.</p></div></a></li>
+  </ul>
 </section>
 {{ end }}

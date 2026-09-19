@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $emptyPost := and (eq .Section "posts") (not (strings.TrimSpace .Plain)) }}
 <article class="prose">
   <header class="entry-header">
     {{ if eq .Section "posts" }}
@@ -9,7 +10,18 @@
     {{ end }}
     <h1>{{ .Title }}</h1>
   </header>
-  <div class="entry-content">{{ .Content }}</div>
+  {{ if $emptyPost }}
+    <p class="banner">This sample is being moved into my <a href="/work/">new portfolio</a>. In the meantime, see my <a href="/resume/">resume</a> or <a href="/contact/">get in touch</a>.</p>
+  {{ else }}
+    <div class="entry-content">{{ .Content }}</div>
+  {{ end }}
+  {{ if .Params.testimonials }}
+    <section id="testimonials" class="testimonials">
+      <h2>Testimonials</h2>
+      <p class="note">Complete testimonials with attribution are on my <a href="{{ site.Params.linkedin }}">LinkedIn</a> profile.</p>
+      {{ partial "testimonials.html" (dict "mode" "full") }}
+    </section>
+  {{ end }}
   {{ if and (eq .Section "posts") (in .Params.categories "memoirs") }}
     <aside class="entry-footer">{{ partial "subscribe.html" . }}
       <p><a href="/memoirs-beyond-the-womb/">← All memoirs</a></p>

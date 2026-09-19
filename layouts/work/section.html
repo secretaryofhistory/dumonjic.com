@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{ $items := .Pages.ByWeight }}
+<div class="wide work-index">
+  <header class="entry-header">
+    <h1>{{ .Title }}</h1>
+    <div class="lede">{{ .Content }}</div>
+  </header>
+  {{ if $items }}
+    {{ $disciplines := slice }}
+    {{ range $items }}{{ with .Params.discipline }}{{ $disciplines = $disciplines | append . }}{{ end }}{{ end }}
+    {{ $disciplines = $disciplines | uniq }}
+    {{ if gt (len $disciplines) 1 }}
+    <div class="filters" role="group" aria-label="Filter by discipline" data-filters>
+      <button type="button" class="pill" aria-pressed="true" data-filter="">All</button>
+      {{ range $disciplines }}<button type="button" class="pill" aria-pressed="false" data-filter="{{ . }}">{{ . }}</button>{{ end }}
+    </div>
+    {{ end }}
+    <ul class="grid" id="work-grid">{{ range $items }}{{ partial "work-card.html" . }}{{ end }}</ul>
+    {{ $js := resources.Get "js/work-filter.js" | js.Build (dict "minify" true) | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+  {{ else }}
+    <div class="empty">
+      <p>Case studies are on the way. In the meantime, you can read my <a href="/resume/">resume</a>, browse my <a href="/creative-writing/">writing</a>, or <a href="/contact/">get in touch</a>.</p>
+    </div>
+  {{ end }}
+</div>
+{{ end }}
