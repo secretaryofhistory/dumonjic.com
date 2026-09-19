@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{{ partial "feed.xml" (dict "ctx" . "self" (printf "%sfeed/" site.Home.Permalink)) | safeHTML }}

@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="entry-header"><h1>{{ .Title }}</h1></header>
+  <form class="search-form" role="search" action="/search/" method="get" onsubmit="return false">
+    <label class="sr-only" for="q">Search this site</label>
+    <input type="search" id="q" name="q" placeholder="Search essays, memoirs, and samples…" autocomplete="off" autofocus>
+  </form>
+  <p id="search-status" class="search-status" role="status" aria-live="polite"></p>
+  <ol id="search-results" class="post-list"></ol>
+  <noscript><p>Search needs JavaScript. You can browse <a href="/memoirs-beyond-the-womb/">the memoirs</a> or <a href="/portfolio/">the portfolio</a> instead.</p></noscript>
+</div>
+{{ $js := resources.Get "js/search.js" | js.Build (dict "minify" true) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

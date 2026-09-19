@@ -1,0 +1,6 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="entry-header"><p class="meta">Category</p><h1>{{ .Title }}</h1></header>
+  {{ partial "post-list.html" .Pages.ByDate.Reverse }}
+</div>
+{{ end }}

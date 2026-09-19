@@ -1,0 +1,11 @@
+{{- with site.Params.buttondown }}
+<form class="subscribe" action="https://buttondown.com/api/emails/embed-subscribe/{{ . }}" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/{{ . }}', 'popupwindow')">
+  <label for="bd-email">Get <em>Memoirs Beyond the Womb</em> in your inbox on Sundays.</label>
+  <div class="subscribe-row">
+    <input type="email" name="email" id="bd-email" placeholder="you@example.com" autocomplete="email" required>
+    <input type="hidden" value="1" name="embed">
+    <button type="submit">Subscribe</button>
+  </div>
+  <p class="subscribe-note">Free. Unsubscribe anytime. Powered by <a href="https://buttondown.com/refer/{{ . }}" target="_blank" rel="noopener">Buttondown</a>.</p>
+</form>
+{{- end }}

@@ -1,0 +1,52 @@
+baseURL = "https://dumonjic.com/"
+locale = "en-US"
+title = "Alen Dumonjić"
+timeZone = "America/New_York"
+enableRobotsTXT = true
+disableKinds = ["taxonomy"]   # we only need the individual category pages, not /category/ itself
+summaryLength = 40
+
+[params]
+  description = "Essayist, Literary Critic, Content Designer"
+  linkedin = "https://linkedin.com/in/alendumonjic"
+  substack = "https://velvetvowel.substack.com/"
+  # Your Buttondown username (the part after buttondown.com/). Leave empty to hide subscribe forms.
+  buttondown = ""
+
+# Keep the WordPress URL structure: /2026/03/01/post-slug/
+[permalinks.page]
+  posts = "/:year/:month/:day/:slug/"
+
+# Front matter uses `categories`, but keep the WordPress URL style: /category/memoirs/
+[taxonomies]
+  category = "categories"
+
+[permalinks.taxonomy]
+  categories = "/category/"
+[permalinks.term]
+  categories = "/category/:slug/"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputFormats.SearchIndex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+# WordPress served its RSS feed at /feed/. Serve the same feed there so existing subscribers keep working.
+[mediaTypes."application/x-legacy-feed"]
+  suffixes = ["html"]
+[outputFormats.LegacyFeed]
+  mediaType = "application/x-legacy-feed"
+  baseName = "index"
+  path = "feed"
+  isPlainText = true
+  notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex", "LegacyFeed"]
+  page = ["HTML"]
+  section = ["HTML"]
+  term = ["HTML"]

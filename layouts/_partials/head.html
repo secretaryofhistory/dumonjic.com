@@ -1,0 +1,21 @@
+{{- $title := cond .IsHome site.Title (printf "%s • %s" .Title site.Title) -}}
+{{- $desc := site.Params.description -}}
+{{- if .Description }}{{ $desc = .Description }}{{ else if and .IsPage (not .IsHome) }}{{ $desc = .Summary | plainify | truncate 160 }}{{ end -}}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta name="theme-color" content="#292524">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ cond .IsHome site.Title .Title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ cond (eq .Section "posts") "article" "website" }}">
+<meta name="twitter:card" content="summary_large_image">
+{{ with resources.Get "images/alen.jpg" }}
+<meta property="og:image" content="{{ (.Fill "1200x630 q85").Permalink }}">
+<link rel="icon" href="{{ (.Fill "64x64 q90").RelPermalink }}">
+{{ end }}
+{{ with site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
+<link rel="preload" href="/fonts/dmserif-latin.woff2" as="font" type="font/woff2" crossorigin>
+{{ $css := resources.Get "css/main.css" | resources.Minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

@@ -1,0 +1,2 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML }}
+{{ partial "feed.xml" (dict "ctx" . "self" (printf "%sindex.xml" site.Home.Permalink)) | safeHTML }}

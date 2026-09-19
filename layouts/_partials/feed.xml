@@ -1,0 +1,28 @@
+{{- $self := .self -}}{{- with .ctx -}}
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>{{ site.Title }}</title>
+  <atom:link href="{{ $self }}" rel="self" type="application/rss+xml" />
+  <link>{{ site.Home.Permalink }}</link>
+  <description>{{ site.Params.description }}</description>
+  <language>{{ site.Language.Locale }}</language>
+  {{ with (where site.RegularPages "Section" "posts").ByDate.Reverse }}<lastBuildDate>{{ (index . 0).Date.UTC.Format "Mon, 02 Jan 2006 15:04:05 GMT" }}</lastBuildDate>{{ end }}
+  {{- range first 20 (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+  <item>
+    <title>{{ .Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <dc:creator>Alen Dumonjić</dc:creator>
+    <pubDate>{{ .Date.UTC.Format "Mon, 02 Jan 2006 15:04:05 GMT" }}</pubDate>
+    {{- range .GetTerms "categories" }}
+    <category>{{ .Title }}</category>{{ end }}
+    {{- if .Params.wp_id }}
+    <guid isPermaLink="false">{{ site.Home.Permalink }}?p={{ .Params.wp_id }}</guid>
+    {{- else }}
+    <guid isPermaLink="true">{{ .Permalink }}</guid>{{ end }}
+    <description>{{ .Summary | plainify | truncate 280 | transform.XMLEscape | safeHTML }}</description>
+    <content:encoded>{{ printf "<![CDATA[%s]]>" .Content | safeHTML }}</content:encoded>
+  </item>
+  {{- end }}
+</channel>
+</rss>
+{{- end -}}
