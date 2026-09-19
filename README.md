@@ -22,7 +22,7 @@ Case studies live in `content/work/<name>/index.md`. Copy any existing folder, e
   - `{{< compare before="Old copy" after="New copy" >}}` for a before/after comparison (or `before_img="a.png" after_img="b.png"`).
   - `{{< metrics >}}{{< metric value="40%" label="fewer support tickets" >}}{{< /metrics >}}` for results.
 - Downloads: list files in the `downloads:` front matter (see the commented example).
-- **At a glance and one-page summary:** fill in the `snapshot:` block (`problem`, `did`, and an optional headline `result` such as "40%" with `resultLabel`). It becomes the "At a glance" card and a printable summary at `/work/<name>/summary.html`. On that page, "Print or save as PDF" produces a clean, light one-pager. Empty fields are hidden.
+- **At a glance and one-page summary:** fill in the `snapshot:` block (`problem`, `did`, and an optional headline `result` such as "40%" with `resultLabel`). It becomes the "At a glance" card and a printable summary at `/work/<name>/summary.html`. The page prints cleanly on one letter-size sheet (File > Print in the browser). Empty fields are hidden.
 
 ## Anonymize by default
 
