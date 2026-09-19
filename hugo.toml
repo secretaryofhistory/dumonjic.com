@@ -12,8 +12,6 @@ summaryLength = 40
   substack = "https://velvetvowel.substack.com/"
   # Your Buttondown username (the part after buttondown.com/). Leave empty to hide subscribe forms.
   buttondown = ""
-  # Public contact email for the Contact page. Leave empty to show LinkedIn only.
-  contact_email = ""
 
 # Keep the WordPress URL structure: /2026/03/01/post-slug/
 [permalinks.page]

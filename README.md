@@ -23,7 +23,33 @@ Case studies live in `content/work/<name>/index.md`. Copy any existing folder, e
   - `{{< metrics >}}{{< metric value="40%" label="fewer support tickets" >}}{{< /metrics >}}` for results.
 - Downloads: list files in the `downloads:` front matter (see the commented example).
 
-Other settings live in `hugo.toml`: `buttondown` (subscribe forms) and `contact_email` (Contact page). Put a resume PDF at `static/alen-dumonjic-resume.pdf` and the Resume page shows a download button.
+## Anonymize by default
+
+Write every case study as if a stranger will read it, because the GitHub repo is public.
+
+- Describe the company instead of naming it: `org: "Series B education-technology company"`.
+- Replace product names, feature names, customer names, and people's names with descriptors.
+- Round or index numbers if exact figures are sensitive (for example "about 40%").
+- Blur or redraw screenshots; check text inside images, browser tabs, URLs, and file names.
+- Keep `confidential: true`; it adds "Some details are anonymized. More are available on request."
+
+`hugo new content work/my-project/index.md` starts a new case study from an anonymized template.
+
+## Unlisted case studies (shared by link)
+
+For work you'd rather not broadcast, create a case study at a secret URL:
+
+```bash
+scripts/new-unlisted.sh "Title of the case study" "UX writing"
+```
+
+It prints a private link like `https://dumonjic.com/u/<20 random characters>/`. The page is published there but left out of the menu, the Work page, search, the RSS feed, the sitemap, and `robots.txt`, and it tells search engines not to index it. Set `draft: false` to publish it, then send the link to specific people. To revoke it, change the `url:` in its front matter (or delete the folder) and push.
+
+**Unlisted is not secret.** Anyone who has the link can read it, links can be forwarded, and the source file lives in the public GitHub repo, where anyone can browse it. Only put anonymized material in an unlisted page. GitHub Pages needs a public repo on the free plan, so genuinely confidential material shouldn't go on this site at all.
+
+## Settings
+
+Other settings live in `hugo.toml`: `buttondown` (subscribe forms). Put a resume PDF at `static/alen-dumonjic-resume.pdf` and the Resume page shows a download button.
 
 ## How it's put together
 
